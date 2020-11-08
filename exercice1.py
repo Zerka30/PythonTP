@@ -1,9 +1,10 @@
-input = input("Entrée votre chaine à décoder") # P0$ùa1'OMàç-(98*/-M(-(0E+%S
-char = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-result = ""
+char = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  # Constante
 
-for i in range(0, len(input)):
-    for j in range(0, len(char)):
-        if input[i] == char[j]:
-          result = result + char[j]
+chaine = input("Entrez votre chaine à décoder: ")  # P0$ùa1'OMàç-(98*/-M(-(0E+%S
+
+result = ""
+for i in range(len(chaine)):
+    for j in range(len(char)):
+        if chaine[i] == char[j]:
+            result += char[j]
 print(result)
