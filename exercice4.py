@@ -47,32 +47,32 @@ def print_parking():
 
 
 def park_cars():
-    place = int(input("\nA quels place souhaitez vous vous garer ? \n"))
+    place = int(input("\nA quel place souhaitez vous vous garer ? "))
     while 81 < place < 0:  # On vérifie que l'utilisateur à entrer une place existant sinon on lui redemande son n° de place
         print("Cette place n'existe pas, nous avons actuellement une capacité de 81 places")
-        place = int(input("A quels place souhaitez vous vous garer ? \n"))
+        place = int(input("A quel place souhaitez vous vous garer ? "))
     while parking[place] == "P":  # On vérifie si la place est libre sinon on redemande son n° place
-        print("Désolé mais cette place est déjà prise")
-        place = int(input("A quels place souhaitez vous vous garer ? \n"))
+        print("Désolé mais cette place est déjà prise !")
+        place = int(input("A quel place souhaitez vous vous garer ? "))
     parking[place] = "P"  # On modifie l'état de la place
     print("Le code de sortie de votre place est {}".format(unlock_code[place]["code"]))  # On affiche le code de la place
     print_parking()
 
 
 def exit_cars():
-    place = int(input("\nDe quels place souhaitez vous sortir ? \n"))
+    place = int(input("\nDe quel place souhaitez vous sortir ? "))
     while 80 < place < 0:  # On vérifie que l'utilisateur à entrer une place existant sinon on lui redemande son n° de place
-        print("Cette place n'existe pas")
-        place = int(input("De quels place souhaitez vous sortir ? \n"))
+        print("Cette place n'existe pas !")
+        place = int(input("De quel place souhaitez vous sortir ? "))
     while parking[place] == "D":  # On vérifie si la place est prise sinon on redemande son n° place
         print("Désolé mais cette place n'est pas occupé par une voiture")
-        place = int(input("De quels place souhaitez vous sortir ? \n"))
+        place = int(input("De quel place souhaitez vous sortir ? "))
     code_place = unlock_code[place]["code"]  # On récupére le code du n° de la place
     code = input("Entrer votre code : ")  # On demande son code
     if code_place == code:  # On vérifie que le code donne et le code de la place son identique
         parking[place] = "D"  # On modifie l'état de la place
     else:
-        print("Désolé le code est erronée")
+        print("Désolé le code est erroné !")
     print_parking()
 
 
@@ -81,11 +81,12 @@ def menu():
     print("\t(2) Garer sa voiture")
     print("\t(3) Sortir sa voiture")
     print("\t(e) Sortir du menu")
-    return input("Entre l'action que vous souhaitez faire : ")
+    return input("Entrez l'action que vous souhaitez faire : ")
 
 
-print("\nBienvenue dans notre parking")
-print(" ")
+print()
+print("Bienvenue dans notre parking")
+print()
 
 
 choice = menu()
