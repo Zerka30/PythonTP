@@ -1,4 +1,3 @@
-
 import string
 import random
 
@@ -66,14 +65,12 @@ def exit_cars():
     while parking[place] == "D": #On vérifie si la place est prise sinon on redemande son n° place
         print("Désolé mais cette place n'est pas occupé par une voiture")
         place = int(input("De quels place souhaitez vous sortir ? \n"))
-        if place == "e": #On ajoute une fonction pour sortir de la boucle (pas obligatoire)
-            exit()
     code_place = unlock_code[place].get("code") #On récupére le code du n° de la place
     code = input("Entrer votre code : ") #On demande son code
     if code_place == code: #On vérifie que le code donne et le code de la place son identique
         parking[place] = "D" #On modifie l'état de la place
     else:
-        print("Désolé le code est erronée") 
+        print("Désolé le code est erronée")
     print_parking()
 
 def menu():
