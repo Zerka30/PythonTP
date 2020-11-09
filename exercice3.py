@@ -1,4 +1,4 @@
-accounts = [  # On définit une liste contenant des dictionnaire
+bank_accounts = [  # On définit une liste contenant des dictionnaire
     {"id": 5698, "owner": "Raphaël", "balance": 9634.0, "discover": 0.0},
     {"id": 5632, "owner": "Clément", "balance": 127.0, "discover": -500.0},
     {"id": 5148, "owner": "Maxime", "balance": 1354.0, "discover": -15000.0},
@@ -7,6 +7,10 @@ accounts = [  # On définit une liste contenant des dictionnaire
 
 
 def print_menu():
+    """
+    Fonction perméttant d'afficher le menu et de demander à l'utilisateur quelle action il veut faire.
+    :return: l'action que veux faire l'utilisateur.
+    """
     print("\t(1) Afficher le solde.")
     print("\t(2) Déposer de l'argent.")
     print("\t(3) Retirer de l'argent.")
@@ -16,98 +20,126 @@ def print_menu():
     return input("Entrez l'action que vous souhaitez faire: ")
 
 
-def account_exist(account_id):  # On crée  une fonction qui nous retourne si le compte passé en paramètre existe
+def account_exist(accounts, account_id):
+    """
+    Fonction pour savoir si compte existe en utilisant son identifiant unique.
+    :param accounts: liste des comptes.
+    :param account_id: l'identifiant du compte a tester.
+    :return: une Tuple avec comme première valeur: vrai si le compte existe et faux si le compte n'existe pas et en deuxième valeur la position dans la liste des comptes passé en parramètre.
+    """
     found = False
     i = 0
     while found is not True and i < len(accounts):
-        account = accounts[i]
-        if account["id"] == account_id:
+        if accounts[i]["id"] == account_id:
             found = True
         else:
             i += 1
-    return found
+    return found, i
 
 
-def get_account():  # On crée une fonction qui nous retourne le n° du compte dans la liste afin de pouvoir le récupére si besoin
-    account = int(input("Entrer votre numéro de compte : "))
-    id = -1
-    found = False
-    if account_exist(account):
-        for i in range(len(accounts)):
-            bank = accounts[i]
-            if bank["id"] == account:
-                id = i
-                found = True
-    else:
+def get_account(accounts):
+    """
+    Fonction permettant de récupérer la position du compte dans la liste des comptes passé en parramètre.
+    :param accounts: liste des comptes.
+    :return: une Tuple: un boolean si le compte démandé existe et la position dans la liste des comptes du comptes demandés.
+    """
+    account_id = int(input("Entrez votre numéro de compte: "))
+    exist = account_exist(accounts, account_id)
+    if not exist[0]:
         print("Votre compte n'existe pas")
-    return found, id
+    return exist[0], exist[1]
 
 
-def check_balance():
-    account = get_account() # On récupére le compte correspondant au n° de compte donne lors de l'appel get_account()
+def get_balance(accounts):
+    """
+    Procédure permettant d'afficher le solde d'un compte qui se trouve dans la liste passé en parramètre
+    :param accounts: liste des comptes
+    """
+    account = get_account(accounts)
     if account[0]:
         bank = accounts[account[1]]
-        print("Vous avez {:.2f}$ en banque".format(bank["balance"]))  # On affice le solde du compte
-        print(" ")
+        print("Vous avez {:.2f}$ en banque".format(bank["balance"]))
 
 
-def deposit_money():
-    account = get_account() # On récupére le compte correspondant au n° de compte donne lors de l'appel get_account()
+def deposit_money(accounts):
+    """
+    Procédure pour déposer de l'argent sur un compte qui se trouve dans la liste passé en parramètre.
+    :param accounts: liste des comptes.
+    """
+    account = get_account(accounts)
     if account[0]:
         bank = accounts[account[1]]
         deposit = float(input("Combien souhaitez vous déposer ? "))
-        bank["balance"] = bank["balance"] + deposit  # On met la somme du compte à la somme du compte + la somme déposer
+        bank["balance"] += deposit
         print("Vous avez désormais {:.2f}$ en banque".format(bank["balance"]))
 
 
-def withdraw_money():
-    account = get_account() # On récupére le compte correspondant au n° de compte donne lors de l'appel get_account()
+def withdraw_money(accounts):
+    """
+    Procédure pour retirer de l'argent sur un compter qui se trouve dans la liste passé en parramètre.
+    :param accounts: liste des comptes.
+    """
+    account = get_account(accounts)
     if account[0]:
         bank = accounts[account[1]]
         withdraw = float(input("Combien souhaitez vous retirer ? "))
-        if bank["balance"] - withdraw > bank["discover"]:  # On vérifie si ce que l'on souhaite retirer est possible en prennant en compte le découvert
-            bank["balance"] = bank["balance"] - withdraw  # On met à jour la somme
+        if bank["balance"] - withdraw > bank["discover"]:
+            bank["balance"] -= withdraw
             print("Vous avez désormais {:.2f}$ en banque".format(bank["balance"]))
         else:
             print("Vous ne pouvez pas retirer autant d'argent, vous dépasseriez votre découvert qui est actuellement de {:.2f}.".format(bank["discover"]))
             print("Vous avez donc {:.2f}$ en banque.".format(bank["balance"]))
 
 
-def create_account():
-    id = int(input("Entrez une id de compte : "))
-    owner = input("Entrez le propriétaire : ")
+def create_account(accounts):
+    """
+    Procédure pour créer un compte et l'ajouter dans la liste des comptes passé en parramètre.
+    :param accounts: liste des comptes.
+    """
+    id = int(input("Entrez une id de compte: "))
+    owner = input("Entrez le propriétaire: ")
     balance = float(input("Entrez le montant du compte : "))
     discover = float(input("Entrez le montant de discover : "))
-    if account_exist(id):  # On vérifie si notre id existe déjà, si oui on affiche une erreur
+    if account_exist(accounts, id)[0]:
         print("Le compte existe déjà dans notre banque !")
     else:
-        accounts.append({"id": id, "owner": owner, "balance": balance, "discover": discover})  # Sinon on ajoute notre compte à la liste
+        accounts.append({"id": id, "owner": owner, "balance": balance, "discover": discover})
         print("Le compte a bien été créé !")
 
 
-def see_account(username="admin", password="Pa$$word"):  # On crée une fonction qui permet de donne la liste de tous les comptes de la banque avec un identifiant et un mot de passe (on pourrait ajouter un système basique d'authentification)
+def see_account(accounts, username="admin", password="Pa$$word"):
+    """
+    Procédure permettant d'afficher les informations de tous les comptes.
+    :param accounts: liste de comptes.
+    :param username: login administrateur.
+    :param password: mot de passe administrateur.
+    :return:
+    """
     if username == "admin" and password == "Pa$$word":
-        for i in range(0, len(accounts)):
+        for i in range(len(accounts)):
             account = accounts[i]
             print(" - id : {} , owner : {} , balance : {} , discover : {}".format(account["id"], account["owner"], account["balance"], account["discover"]))
 
 
 print(" ")
-print("Bienvenue à la C Bank")
+print("Bienvenue à la Bank")
 print(" ")
 
-choice = print_menu()
-while choice != 'e':
-    if choice == "1":
-        check_balance()
-    elif choice == "2":
-        deposit_money()
-    elif choice == "3":
-        withdraw_money()
-    elif choice == "4":
-        create_account()
-    elif choice == "5":
-        see_account()
-    elif choice == "e":
-        exit()
+running = True
+
+while running:
     choice = print_menu()
+    if choice == "1":
+        get_balance(bank_accounts)
+    elif choice == "2":
+        deposit_money(bank_accounts)
+    elif choice == "3":
+        withdraw_money(bank_accounts)
+    elif choice == "4":
+        create_account(bank_accounts)
+    elif choice == "5":
+        see_account(bank_accounts)
+    elif choice == "e":
+        print("Au revoir ...")
+        running = False
+    print()
