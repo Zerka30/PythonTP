@@ -20,7 +20,7 @@ def print_menu():
     return input("Entrez l'action que vous souhaitez faire: ")
 
 
-def account_exist(accounts, account_id):
+def account_exist(account_id, accounts):
     """
     Fonction pour savoir si compte existe en utilisant son identifiant unique.
     :param accounts: liste des comptes.
@@ -44,7 +44,7 @@ def get_account(accounts):
     :return: une Tuple: un boolean si le compte démandé existe et la position dans la liste des comptes du comptes demandés.
     """
     account_id = int(input("Entrez votre numéro de compte: "))
-    exist = account_exist(accounts, account_id)
+    exist = account_exist(account_id, accounts)
     if not exist[0]:
         print("Votre compte n'existe pas")
     return exist[0], exist[1]
@@ -100,7 +100,7 @@ def create_account(accounts):
     owner = input("Entrez le propriétaire: ")
     balance = float(input("Entrez le montant du compte : "))
     discover = float(input("Entrez le montant de discover : "))
-    if account_exist(accounts, id)[0]:
+    if account_exist(id, accounts)[0]:
         print("Le compte existe déjà dans notre banque !")
     else:
         accounts.append({"id": id, "owner": owner, "balance": balance, "discover": discover})
