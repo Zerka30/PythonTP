@@ -1,17 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 """
 Author: Clément PERRIN & Raphaël HIEN
 Year: 2020
 """
-
-bank_accounts = [  # On définit une liste contenant des dictionnaire
-    {"id": 5698, "owner": "Raphaël", "balance": 9634.0, "discover": 0.0},
-    {"id": 5632, "owner": "Clément", "balance": 127.0, "discover": -500.0},
-    {"id": 5148, "owner": "Maxime", "balance": 1354.0, "discover": -15000.0},
-    {"id": 3496, "owner": "Léo", "balance": 700.0, "discover": -250.0}
-]
-
 
 def print_menu():
     """
@@ -131,10 +124,20 @@ def see_account(accounts, username="admin", password="Pa$$word"):
                                                                                   account["balance"],
                                                                                   account["discover"]))
 
+"""
+Programme Principal
+"""
 
-print(" ")
+bank_accounts = [  # On définit une liste contenant des dictionnaire
+    {"id": 5698, "owner": "Raphaël", "balance": 9634.0, "discover": 0.0},
+    {"id": 5632, "owner": "Clément", "balance": 127.0, "discover": -500.0},
+    {"id": 5148, "owner": "Maxime", "balance": 1354.0, "discover": -15000.0},
+    {"id": 3496, "owner": "Léo", "balance": 700.0, "discover": -250.0}
+]
+
+print()
 print("Bienvenue à la Bank")
-print(" ")
+print()
 
 running = True
 
@@ -154,3 +157,4 @@ while running:
         print("Au revoir ...")
         running = False
     print()
+    input()
