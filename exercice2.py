@@ -7,7 +7,7 @@ def triangle(n, c):
     """
     z = n - 1
     x = 1
-    for _ in range(n):
+    for i in range(n):
         print(" " * z + c * x + " " * z)
         x += 2
         z -= 1
