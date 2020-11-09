@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Author: Clément PERRIN
+Year: 2020
+"""
+
 # Procedure avec 2 parramètres n etc
 def triangle(n, c):
     """

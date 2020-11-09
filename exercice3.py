@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Author: Clément PERRIN & Raphaël HIEN
+Year: 2020
+"""
+
 bank_accounts = [  # On définit une liste contenant des dictionnaire
     {"id": 5698, "owner": "Raphaël", "balance": 9634.0, "discover": 0.0},
     {"id": 5632, "owner": "Clément", "balance": 127.0, "discover": -500.0},
@@ -87,7 +94,9 @@ def withdraw_money(accounts):
             bank["balance"] -= withdraw
             print("Vous avez désormais {:.2f}$ en banque".format(bank["balance"]))
         else:
-            print("Vous ne pouvez pas retirer autant d'argent, vous dépasseriez votre découvert qui est actuellement de {:.2f}.".format(bank["discover"]))
+            print(
+                "Vous ne pouvez pas retirer autant d'argent, vous dépasseriez votre découvert qui est actuellement de {:.2f}.".format(
+                    bank["discover"]))
             print("Vous avez donc {:.2f}$ en banque.".format(bank["balance"]))
 
 
@@ -118,7 +127,9 @@ def see_account(accounts, username="admin", password="Pa$$word"):
     if username == "admin" and password == "Pa$$word":
         for i in range(len(accounts)):
             account = accounts[i]
-            print(" - id : {} , owner : {} , balance : {} , discover : {}".format(account["id"], account["owner"], account["balance"], account["discover"]))
+            print(" - id : {} , owner : {} , balance : {} , discover : {}".format(account["id"], account["owner"],
+                                                                                  account["balance"],
+                                                                                  account["discover"]))
 
 
 print(" ")
