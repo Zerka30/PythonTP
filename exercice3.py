@@ -88,8 +88,7 @@ def withdraw_money(accounts):
             print("Vous avez désormais {:.2f}$ en banque".format(bank["balance"]))
         else:
             print(
-                "Vous ne pouvez pas retirer autant d'argent, vous dépasseriez votre découvert qui est actuellement de {:.2f}.".format(
-                    bank["discover"]))
+                "Vous ne pouvez pas retirer autant d'argent, vous dépasseriez votre découvert qui est actuellement de {:.2f}.".format(bank["discover"]))
             print("Vous avez donc {:.2f}$ en banque.".format(bank["balance"]))
 
 
@@ -136,7 +135,7 @@ bank_accounts = [  # On définit une liste contenant des dictionnaire
 ]
 
 print()
-print("Bienvenue à la Bank")
+print("Bienvenue à la RT Bank")
 print()
 
 running = True
