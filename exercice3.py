@@ -6,10 +6,10 @@ Author: Clément PERRIN & Raphaël HIEN
 Year: 2020
 """
 
+
 def print_menu():
     """
-    Fonction perméttant d'afficher le menu et de demander à l'utilisateur quelle action il veut faire.
-    :return: l'action que veux faire l'utilisateur.
+    Procédure perméttant d'afficher le menu et de demander à l'utilisateur quelle action il veut faire.
     """
     print("\t(1) Afficher le solde.")
     print("\t(2) Déposer de l'argent.")
@@ -17,7 +17,6 @@ def print_menu():
     print("\t(4) Créer un compte.")
     print("\t(5) Accèder aux données de tous les comptes.")
     print("\t(e) Sortir de la Bank.")
-    return input("Entrez l'action que vous souhaitez faire: ")
 
 
 def account_exist(account_id, accounts):
@@ -87,8 +86,7 @@ def withdraw_money(accounts):
             bank["balance"] -= withdraw
             print("Vous avez désormais {:.2f}$ en banque".format(bank["balance"]))
         else:
-            print(
-                "Vous ne pouvez pas retirer autant d'argent, vous dépasseriez votre découvert qui est actuellement de {:.2f}.".format(bank["discover"]))
+            print("Vous ne pouvez pas retirer autant d'argent, vous dépasseriez votre découvert qui est actuellement de {:.2f}.".format(bank["discover"]))
             print("Vous avez donc {:.2f}$ en banque.".format(bank["balance"]))
 
 
@@ -99,11 +97,11 @@ def create_account(accounts):
     """
     id = int(input("Entrez une id de compte: "))
     owner = input("Entrez le propriétaire: ")
-    balance = float(input("Entrez le montant du compte : "))
-    discover = float(input("Entrez le montant de discover : "))
     if account_exist(id, accounts)[0]:
         print("Le compte existe déjà dans notre banque !")
     else:
+        balance = float(input("Entrez le montant du compte : "))
+        discover = float(input("Entrez le montant de discover : "))
         accounts.append({"id": id, "owner": owner, "balance": balance, "discover": discover})
         print("Le compte a bien été créé !")
 
@@ -123,6 +121,7 @@ def see_account(accounts, username="admin", password="Pa$$word"):
                                                                                   account["balance"],
                                                                                   account["discover"]))
 
+
 """
 Programme Principal
 """
@@ -138,10 +137,12 @@ print()
 print("Bienvenue à la RT Bank")
 print()
 
-running = True
+# Appel de la procédure afficheMENU()
 
+running = True
 while running:
-    choice = print_menu()
+    print_menu()
+    choice = input("Entrez l'action que vous souhaitez faire: ")
     if choice == "1":
         get_balance(bank_accounts)
     elif choice == "2":
@@ -153,7 +154,6 @@ while running:
     elif choice == "5":
         see_account(bank_accounts)
     elif choice == "e":
-        print("Au revoir ...")
         running = False
-    print()
-    input()
+
+print("Fun du programme")
