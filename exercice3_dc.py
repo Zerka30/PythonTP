@@ -8,7 +8,7 @@ Year: 2020
 
 def print_menu():
     """
-    Fonction perméttant d'afficher le menu et de demander à l'utilisateur quelle action il veut faire.
+    Procédure perméttant d'afficher le menu et de demander à l'utilisateur quelle action il veut faire.
     :return: l'action que veux faire l'utilisateur.
     """
     print("\n\t(1) Afficher le solde.")
